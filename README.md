@@ -147,3 +147,14 @@ It explains the important code paths:
 
 For the specific cache-sync and fence distinction, read
 [docs/CACHE_SYNC_AND_FENCE.md](docs/CACHE_SYNC_AND_FENCE.md).
+
+For a KyLink-oriented learning path, read
+[docs/KYLINK_LEARNING_LABS.md](docs/KYLINK_LEARNING_LABS.md).
+It explains how to turn the raw `avg / p95 / p99 / max` numbers into practical intuition for a video inference pipeline.
+
+To generate a CSV table for the learning labs:
+
+```bash
+bash scripts/run_learning_labs.sh ./build/linky linky_learning_labs.csv
+column -s, -t linky_learning_labs.csv | less -S
+```

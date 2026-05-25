@@ -123,6 +123,33 @@ void linky_print_stats(const linky_config_t *cfg, const linky_stats_t *stats)
            stats->max_us);
 }
 
+void linky_print_csv_header(void)
+{
+    puts("mode,frame_size,buffers,iterations,eventfd,mlockall,producer_cpu,consumer_cpu,rt_prio,samples,dropped,elapsed_ms,avg_us,p50_us,p95_us,p99_us,max_us");
+}
+
+void linky_print_csv_row(const linky_config_t *cfg, const linky_stats_t *stats)
+{
+    printf("%s,%zu,%u,%u,%d,%d,%d,%d,%d,%" PRIu64 ",%" PRIu64 ",%.3f,%.3f,%.3f,%.3f,%.3f,%.3f\n",
+           linky_mode_name(cfg->mode),
+           cfg->frame_size,
+           cfg->buffer_count,
+           cfg->iterations,
+           cfg->use_eventfd,
+           cfg->use_mlockall,
+           cfg->producer_cpu,
+           cfg->consumer_cpu,
+           cfg->realtime_priority,
+           stats->samples,
+           stats->dropped,
+           (double)stats->elapsed_ns / 1000000.0,
+           stats->avg_us,
+           stats->p50_us,
+           stats->p95_us,
+           stats->p99_us,
+           stats->max_us);
+}
+
 const char *linky_mode_name(linky_mode_t mode)
 {
     switch (mode) {

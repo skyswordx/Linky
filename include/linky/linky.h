@@ -36,6 +36,7 @@ typedef struct linky_config {
     int producer_cpu;
     int consumer_cpu;
     int realtime_priority;
+    int output_csv;
     const char *dma_heap_path;
 } linky_config_t;
 
@@ -70,6 +71,8 @@ int linky_parse_size(const char *text, size_t *out);
 
 int linky_run(const linky_config_t *cfg, linky_stats_t *stats);
 void linky_print_stats(const linky_config_t *cfg, const linky_stats_t *stats);
+void linky_print_csv_header(void);
+void linky_print_csv_row(const linky_config_t *cfg, const linky_stats_t *stats);
 const char *linky_mode_name(linky_mode_t mode);
 
 int linky_selftest(void);

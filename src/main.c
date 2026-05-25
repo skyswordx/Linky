@@ -19,6 +19,7 @@ static void print_usage(const char *argv0)
     puts("  --consumer-cpu N    bind consumer thread to CPU N");
     puts("  --rt-prio N         request SCHED_FIFO priority N");
     puts("  --heap PATH         dma-buf heap path, default /dev/dma_heap/system");
+    puts("  --csv              print one CSV row instead of human text");
     puts("");
     puts("Examples:");
     puts("  linky pool --frames 20000 --frame-size 1M --buffers 8");
@@ -95,6 +96,8 @@ static int parse_args(int argc, char **argv, linky_config_t *cfg)
             cfg->realtime_priority = (int)prio;
         } else if (strcmp(argv[i], "--heap") == 0 && i + 1 < argc) {
             cfg->dma_heap_path = argv[++i];
+        } else if (strcmp(argv[i], "--csv") == 0) {
+            cfg->output_csv = 1;
         } else {
             return -EINVAL;
         }
@@ -116,6 +119,7 @@ int main(int argc, char **argv)
         .producer_cpu = -1,
         .consumer_cpu = -1,
         .realtime_priority = 0,
+        .output_csv = 0,
         .dma_heap_path = "/dev/dma_heap/system",
     };
     linky_stats_t stats;
@@ -145,6 +149,10 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    linky_print_stats(&cfg, &stats);
+    if (cfg.output_csv) {
+        linky_print_csv_row(&cfg, &stats);
+    } else {
+        linky_print_stats(&cfg, &stats);
+    }
     return 0;
 }
