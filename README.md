@@ -158,3 +158,13 @@ To generate a CSV table for the learning labs:
 bash scripts/run_learning_labs.sh ./build/linky linky_learning_labs.csv
 column -s, -t linky_learning_labs.csv | less -S
 ```
+
+To generate a visual report:
+
+```bash
+bash scripts/run_visual_report.sh ./build/linky reports
+xdg-open reports/linky_learning_labs.html
+```
+
+The visual report runs the same first-principles sequence, writes the raw CSV,
+and creates a standalone HTML file for comparing p99 and max across experiments.

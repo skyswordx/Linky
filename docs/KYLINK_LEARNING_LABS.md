@@ -49,6 +49,30 @@ bash scripts/run_learning_labs.sh ./build/linky linky_learning_labs.csv
 column -s, -t linky_learning_labs.csv | less -S
 ```
 
+如果你想直接生成纵览报告，执行：
+
+```bash
+bash scripts/run_visual_report.sh ./build/linky reports
+xdg-open reports/linky_learning_labs.html
+```
+
+这个脚本会自动跑 frame size、backend、eventfd、buffer count、scheduling 几组实验。
+原始数据保存在：
+
+```text
+reports/linky_learning_labs.csv
+```
+
+可视化报告保存在：
+
+```text
+reports/linky_learning_labs.html
+```
+
+HTML 里每个实验都会画出 p99 和 max。
+先看 p99，再看 max。
+平均值只作为参考。
+
 ## 实验 1：frame size sweep
 
 命令里会跑：

@@ -12,3 +12,7 @@ compile_commands.json
 .cache/
 .vscode/
 .idea/
+reports/
+linky_learning_labs.csv
+__pycache__/
+*.pyc
